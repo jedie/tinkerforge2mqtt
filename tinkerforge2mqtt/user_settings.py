@@ -35,6 +35,8 @@ class UserSettings:
     """
 
     device_name: str = 'Tinkerforge'
+    host: str = 'localhost'
+    port: int = 4223
 
     # Information about the MQTT server:
     mqtt: dataclasses = dataclasses.field(default_factory=MqttSettings)

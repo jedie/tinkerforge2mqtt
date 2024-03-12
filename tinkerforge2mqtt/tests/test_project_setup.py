@@ -7,7 +7,7 @@ from cli_base.cli_tools.code_style import assert_code_style
 from packaging.version import Version
 
 from tinkerforge2mqtt import __version__
-from tinkerforge2mqtt.cli.dev import PACKAGE_ROOT
+from tinkerforge2mqtt.cli_dev import PACKAGE_ROOT
 
 
 class ProjectSetupTestCase(TestCase):
