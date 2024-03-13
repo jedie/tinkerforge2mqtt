@@ -34,9 +34,12 @@ class UserSettings:
     See README for more information.
     """
 
-    device_name: str = 'Tinkerforge'
+    mqtt_payload_prefix: str = 'Tinkerforge'
     host: str = 'localhost'
     port: int = 4223
+
+    update_interval: int = 2
+    enumerate_sleep: int = 5
 
     # Information about the MQTT server:
     mqtt: dataclasses = dataclasses.field(default_factory=MqttSettings)

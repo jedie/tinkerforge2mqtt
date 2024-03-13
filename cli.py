@@ -108,6 +108,8 @@ def main(argv):
     # Call our entry point CLI:
     try:
         verbose_check_call(PROJECT_SHELL_SCRIPT, *argv[1:])
+    except KeyboardInterrupt:
+        print('\nInterrupted by user!')
     except subprocess.CalledProcessError as err:
         sys.exit(err.returncode)
 
