@@ -9,7 +9,7 @@ authors = [
 ]
 requires-python = ">=3.10"
 dependencies = [
-    "tinkerforge",  # https://www.tinkerforge.com/de/doc/Source_Code.html
+    "tinkerforge",  # https://www.tinkerforge.com/doc/Source_Code.html
     "ha-services>=0.5.0",  # https://github.com/jedie/ha-services
     "cli-base-utilities",  # https://github.com/jedie/cli-base-utilities
     "bx_py_utils",  # https://github.com/boxine/bx_py_utils
@@ -55,7 +55,7 @@ Source = "https://github.com/jedie/tinkerforge2mqtt"
 
 [project.scripts]
 tinkerforge2mqtt_app = "tinkerforge2mqtt.__main__:main"
-tinkerforge2mqtt_dev = "tinkerforge2mqtt.cli.dev:main"
+tinkerforge2mqtt_dev = "tinkerforge2mqtt.cli_dev:main"
 
 [build-system]
 requires = ["setuptools>=61.0", "setuptools_scm>=7.1"]
@@ -147,6 +147,9 @@ initial_revision = "9e29a86"
 initial_date = 2024-02-29T22:32:49+01:00
 cookiecutter_template = "https://github.com/jedie/cookiecutter_templates/"
 cookiecutter_directory = "piptools-python"
+applied_migrations = [
+    "765b8fb", # 2024-03-12T09:08:01+01:00
+]
 
 [manageprojects.cookiecutter_context.cookiecutter]
 full_name = "Jens Diemer"

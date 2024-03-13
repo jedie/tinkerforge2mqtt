@@ -4,11 +4,7 @@
 """
 
 
-from tinkerforge2mqtt.cli import cli_app
-
-
-def main():
-    cli_app.main()
+from tinkerforge2mqtt.cli_app import main
 
 
 if __name__ == '__main__':
