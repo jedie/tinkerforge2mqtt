@@ -28,9 +28,9 @@ click==8.1.7 \
     #   ha-services
     #   rich-click
     #   tinkerforge2mqtt (pyproject.toml)
-ha-services==0.5.0 \
-    --hash=sha256:255f4bb6dd59f1c0462e84bb710709208c8d51fd48f505d94fad6b185a8e0140 \
-    --hash=sha256:7a0d2fc521ca57cb5c6778bc9381e8f7ad07c9c67fdfe0165308ff9d2929d7a1
+ha-services==0.6.0 \
+    --hash=sha256:345588e858df7529c5dc3d7de1dc981547ddfac2d6ea6240dde3f231781631cd \
+    --hash=sha256:5f6a0acc6e0e7404fb723db2ebb346ab42b7eee689de3dfef636abd8977ae3ba
     # via tinkerforge2mqtt (pyproject.toml)
 markdown-it-py==3.0.0 \
     --hash=sha256:355216845c60bd96232cd8d8c40e8f9765cc86f46880e43a8fd22dc1a1a8cab1 \
