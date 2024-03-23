@@ -2,12 +2,15 @@ import abc
 import logging
 from functools import wraps
 
+from ha_services.mqtt4homeassistant.components.sensor import Sensor
+from ha_services.mqtt4homeassistant.device import MqttDevice
+from paho.mqtt.client import Client
 from rich import print  # noqa
 from rich.console import Console
 from tinkerforge.ip_connection import Device
 
 from tinkerforge2mqtt.device_map_utils.generics import iter_interest_functions
-from tinkerforge2mqtt.mapping.value_map import ValueMap
+from tinkerforge2mqtt.user_settings import UserSettings
 
 
 logger = logging.getLogger(__name__)
@@ -31,9 +34,55 @@ class DeviceMapBase(abc.ABC):
     device_identifier: int
 
     @abc.abstractmethod
-    def __init__(self, device: Device, ha_value_callback):
+    def __init__(
+        self,
+        *,
+        device: Device,
+        mqtt_client: Client,
+        user_settings: UserSettings,
+    ):
         self.device = device
-        self.ha_value_callback = ha_value_callback
+        self.mqtt_client = mqtt_client
+        self.user_settings = user_settings
+
+        self.mqtt_device = MqttDevice(
+            name=f'{device.DEVICE_DISPLAY_NAME} ({device.uid_string})',
+            uid=device.uid_string,
+            manufacturer='Tinkerforge',
+            model=device.DEVICE_DISPLAY_NAME,
+            sw_version=self.get_sw_version(),
+        )
+
+        self.setup_sensors()
+        self.setup_callbacks()
+        self.poll()
+
+    @abc.abstractmethod
+    def setup_sensors(self):
+        if hasattr(self.device, 'get_chip_temperature'):
+            self.chip_temperature_sensor = Sensor(
+                device=self.mqtt_device,
+                name='Chip Temperature',
+                uid='chip_temperature',
+                device_class='temperature',
+                state_class='measurement',
+                unit_of_measurement='°C',
+                suggested_display_precision=0,
+            )
+            logger.info(f'Sensor: {self.chip_temperature_sensor}')
+
+        if hasattr(self.device, 'get_status_led_config'):
+            self.led_config_sensor = Sensor(
+                device=self.mqtt_device,
+                name='LED Config',
+                uid='led_config',
+                device_class='enum',
+            )
+            logger.info(f'Sensor: {self.led_config_sensor}')
+
+    @abc.abstractmethod
+    def setup_callbacks(self):
+        pass
 
     def iter_known_functions(self, device: Device):
         assert (
@@ -44,26 +93,20 @@ class DeviceMapBase(abc.ABC):
 
     @print_exception_decorator
     def poll(self):
-        value = self.device.get_chip_temperature()
-        logger.debug(f'{self.device.DEVICE_DISPLAY_NAME} chip temperature: {value}°C')
-        self.ha_value_callback(
-            device_mapper=self,
-            value=value,
-            ha_value_info=ValueMap.CHIP_TEMPERATURE,
-        )
+        logger.info(f'Polling {self.device.DEVICE_DISPLAY_NAME} ({self.device.uid_string})')
+
+        if get_chip_temperature := getattr(self.device, 'get_chip_temperature', None):
+            value = get_chip_temperature()
+            logger.debug(f'{self.device.DEVICE_DISPLAY_NAME} chip temperature: {value}°C')
+            self.chip_temperature_sensor.set_state(state=value)
+            self.chip_temperature_sensor.publish_config_and_state(self.mqtt_client)
+            logger.info(f'Chip temperature: {value}°C: {self.chip_temperature_sensor}')
 
         if get_status_led_config := getattr(self.device, 'get_status_led_config', None):
             value = get_status_led_config()
-            logger.debug(f'{self.device.DEVICE_DISPLAY_NAME} status LED config: {value}')
-            self.ha_value_callback(
-                device_mapper=self,
-                value=value,
-                ha_value_info=ValueMap.STATUS_LED_CONFIG,
-            )
-
-    @abc.abstractmethod
-    def register_callbacks(self):
-        pass
+            logger.info(f'{self.device.DEVICE_DISPLAY_NAME} status LED config: {value}')
+            self.led_config_sensor.set_state(state=value)
+            self.led_config_sensor.publish_config_and_state(self.mqtt_client)
 
     def get_sw_version(self) -> str:
         api_version = self.device.get_api_version()

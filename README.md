@@ -6,23 +6,17 @@
 [![Python Versions](https://img.shields.io/pypi/pyversions/tinkerforge2mqtt)](https://github.com/jedie/tinkerforge2mqtt/blob/main/pyproject.toml)
 [![License GPL-3.0-or-later](https://img.shields.io/pypi/l/tinkerforge2mqtt)](https://github.com/jedie/tinkerforge2mqtt/blob/main/LICENSE)
 
-Stage: Planing...
+Connect Tinkerforge Bricks/Bricklets via MQTT to Home Assistant...
+
+Currently only a few Bricks/Bricklets are supported.
+See existing [/tinkerforge2mqtt/device_map/](https://github.com/jedie/tinkerforge2mqtt/tree/main/tinkerforge2mqtt/device_map) files.
+
 
 ## Usage
 
 ### Preperation
 
 Setup APT repository for Tinkerforge: https://www.tinkerforge.com/doc/Software/APT_Repository.html
-
-work-a-round for missing  `tinkerforge.asc` file:
-
-```bash
-wget -qO /tmp/tinkerforge.gpg https://download.tinkerforge.com/apt/$(. /etc/os-release; echo $ID)/tinkerforge.gpg
-gpg  --keyring /tmp/temp.gpg  --no-default-keyring --import  /tmp/tinkerforge.gpg
-gpg  --keyring /tmp/temp.gpg  --no-default-keyring  --export -a | sudo tee /etc/apt/trusted.gpg.d/tinkerforge.asc >/dev/null
-rm -f /tmp/tinkerforge.gpg /tmp/temp.gpg
-```
-See: https://www.tinkerunity.org/topic/12201-fehler-beim-apt-quellen-einbinden/ (german)
 
 Install Tinkerforge Brick Daemon: https://www.tinkerforge.com/doc/Software/Brickd.html
 
@@ -31,10 +25,7 @@ sudo apt install brickd
 ```
 
 
-
-```bash
-
-### Bootstrap
+### Bootstrap tinkerforge2mqtt
 
 Clone the sources and just call the CLI to create a Python Virtualenv, e.g.:
 
@@ -44,3 +35,8 @@ Clone the sources and just call the CLI to create a Python Virtualenv, e.g.:
 ~/tinkerforge2mqtt$ ./cli.py --help
 ```
 
+
+## Screenshots
+
+
+![2024-03-23tinkerforge2mqtt1.png](https://raw.githubusercontent.com/jedie/jedie.github.io/master/screenshots/tinkerforge2mqtt/2024-03-23tinkerforge2mqtt1.png "2024-03-23tinkerforge2mqtt1.png")

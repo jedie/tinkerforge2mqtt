@@ -65,7 +65,7 @@ def main():
         width=console.size.width,  # full terminal width
         show_locals=True,
         suppress=[click],
-        max_frames=2,
+        max_frames=8,
     )
 
     if len(sys.argv) >= 2:
