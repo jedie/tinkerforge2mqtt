@@ -455,9 +455,9 @@ graylint==1.0.0 \
     --hash=sha256:d79504a51d921b3b92182f096dd05126238f3f48e2d41ebbc8278c8e4b1a7f9c \
     --hash=sha256:f7e1296cd1595d818259fdfc13b484856889c2bbe81f4ac4724e3bc39b43e973
     # via darker
-ha-services==2.0.0 \
-    --hash=sha256:2031a6684306e4fd940c9c8f2bb4c0d5c7bf58083824fe9e3267de7684d18aed \
-    --hash=sha256:b6cfb31de7f8ac893b060b572e5ab0e0970a6ec9ebbb738337897bdbee8061f3
+ha-services==2.0.1 \
+    --hash=sha256:183fae280eb260979c9c87c8947a4bdb3700f9bcde8e7f2b72e88e13aa9fa249 \
+    --hash=sha256:8229354845d7a11df3667d561cd83dd319c6cc221eb3c8af7b5bbba442d70ec6
     # via tinkerforge2mqtt (pyproject.toml)
 idna==3.6 \
     --hash=sha256:9ecdbbd083b06798ae1e86adcbfe8ab1479cf864e4ee30fe4e46a003d12491ca \
@@ -477,6 +477,14 @@ jaraco-classes==3.3.1 \
     --hash=sha256:86b534de565381f6b3c1c830d13f931d7be1a75f0081c57dff615578676e2206 \
     --hash=sha256:cb28a5ebda8bc47d8c8015307d93163464f9f2b91ab4006e09ff0ce07e8bfb30
     # via keyring
+jaraco-context==4.3.0 \
+    --hash=sha256:4dad2404540b936a20acedec53355bdaea223acb88fd329fa6de9261c941566e \
+    --hash=sha256:5d9e95ca0faa78943ed66f6bc658dd637430f16125d86988e77844c741ff2f11
+    # via keyring
+jaraco-functools==4.0.0 \
+    --hash=sha256:c279cb24c93d694ef7270f970d499cab4d3813f4e08273f95398651a634f0925 \
+    --hash=sha256:daf276ddf234bea897ef14f43c4e1bf9eefeac7b7a82a4dd69228ac20acff68d
+    # via keyring
 jeepney==0.8.0 \
     --hash=sha256:5efe48d255973902f6badc3ce55e2aa6c5c3b3bc642059ef3a91247bcfcc5806 \
     --hash=sha256:c0a454ad016ca575060802ee4d590dd912e35c122fa04e70306de3d076cce755
@@ -489,9 +497,9 @@ jinja2==3.1.3 \
     # via
     #   cookiecutter
     #   safety
-keyring==24.3.1 \
-    --hash=sha256:c3327b6ffafc0e8befbdb597cacdb4928ffe5c1212f7645f186e6d9957a898db \
-    --hash=sha256:df38a4d7419a6a60fea5cef1e45a948a3e8430dd12ad88b0f423c5c143906218
+keyring==25.0.0 \
+    --hash=sha256:9a15cd280338920388e8c1787cb8792b9755dabb3e7c61af5ac1f8cd437cefde \
+    --hash=sha256:fc024ed53c7ea090e30723e6bd82f58a39dc25d9a6797d866203ecd0ee6306cb
     # via twine
 manageprojects==0.17.1 \
     --hash=sha256:355d970261f14b53b574d102e7e82462fe6769baa06c479f00f07a0bcfcb8e4d \
@@ -578,7 +586,9 @@ mdurl==0.1.2 \
 more-itertools==10.2.0 \
     --hash=sha256:686b06abe565edfab151cb8fd385a05651e1fdf8f0a14191e4439283421f8684 \
     --hash=sha256:8fccb480c43d3e99a00087634c06dd02b0d50fbf088b380de5a41a015ec239e1
-    # via jaraco-classes
+    # via
+    #   jaraco-classes
+    #   jaraco-functools
 msgspec==0.18.6 \
     --hash=sha256:06acbd6edf175bee0e36295d6b0302c6de3aaf61246b46f9549ca0041a9d7177 \
     --hash=sha256:0e24539b25c85c8f0597274f11061c102ad6b0c56af053373ba4629772b407be \
@@ -795,9 +805,9 @@ python-slugify==8.0.4 \
     --hash=sha256:276540b79961052b66b7d116620b36518847f52d5fd9e3a70164fc8c50faa6b8 \
     --hash=sha256:59202371d1d05b54a9e7720c5e038f928f45daaffe41dd10822f3907b937c856
     # via cookiecutter
-pyupgrade==3.15.1 \
-    --hash=sha256:7690857cae0f6253f39241dcd2e57118c333c438b78609fc3c17a5aa61227b7d \
-    --hash=sha256:c5e005de2805edcd333d1deb04553200ec69da85e4bc9db37b16345ed9e27ed9
+pyupgrade==3.15.2 \
+    --hash=sha256:c488d6896c546d25845712ef6402657123008d56c1063174e27aabe15bd6b4e5 \
+    --hash=sha256:ce309e0ff8ecb73f56a45f12570be84bbbde9540d13697cacb261a7f595fb1f5
     # via
     #   manageprojects
     #   tinkerforge2mqtt (pyproject.toml)
@@ -1007,13 +1017,13 @@ twine==5.0.0 \
     --hash=sha256:89b0cc7d370a4b66421cc6102f269aa910fe0f1861c124f573cf2ddedbc10cf4 \
     --hash=sha256:a262933de0b484c53408f9edae2e7821c1c45a3314ff2df9bdd343aa7ab8edc0
     # via tinkerforge2mqtt (pyproject.toml)
-typeguard==4.1.5 \
-    --hash=sha256:8923e55f8873caec136c892c3bed1f676eae7be57cdb94819281b3d3bc9c0953 \
-    --hash=sha256:ea0a113bbc111bcffc90789ebb215625c963411f7096a7e9062d4e4630c155fd
+typeguard==4.2.1 \
+    --hash=sha256:7da3bd46e61f03e0852f8d251dcbdc2a336aa495d7daff01e092b55327796eb8 \
+    --hash=sha256:c556a1b95948230510070ca53fa0341fb0964611bd05d598d87fb52115d65fee
     # via tinkerforge2mqtt (pyproject.toml)
-typer==0.9.0 \
-    --hash=sha256:50922fd79aea2f4751a8e0408ff10d2662bd0c8bbfa84755a699f3bada2978b2 \
-    --hash=sha256:5d96d986a21493606a358cae4461bd8cdf83cbf33a5aa950ae629ca3b51467ee
+typer==0.10.0 \
+    --hash=sha256:597f974754520b091665f993f88abdd088bb81c56b3042225434ced0b50a788b \
+    --hash=sha256:b8a587aa06d3c5422c09c2e9935eb80b4c9de8605fd5ab702b2f92d72246ca48
     # via safety
 types-python-dateutil==2.9.0.20240316 \
     --hash=sha256:5d2f2e240b86905e40944dd787db6da9263f0deabef1076ddaed797351ec0202 \
