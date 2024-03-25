@@ -66,9 +66,9 @@ frozendict==2.4.0 \
     --hash=sha256:f91acaff475d0ef0d3436b805c9b91fc627a6a8a281771a24f7ab7f458a0b34f \
     --hash=sha256:f9d81fb396ea81fcba3b3dde4a4b51adcb74ff31632014fbfd030f8acd5a7292
     # via ha-services
-ha-services==2.1.0 \
-    --hash=sha256:bf39359b44101230b31dc764417ea67c946c4d7d486f029148dc7ad20bf74df4 \
-    --hash=sha256:c0f8a86f885636a948f996a1e6120132b89d2b0e86ead61904a6bd83b761cfd3
+ha-services==2.2.0rc0 \
+    --hash=sha256:2ecd3cbcac3faeb63b41cae7565c53b69eba161bf1532ec25577371366a97534 \
+    --hash=sha256:ba4ebe6bef0ef6a80c7e9c7f7f309552ec018131aef2eb233234627345dcfae7
     # via tinkerforge2mqtt (pyproject.toml)
 markdown-it-py==3.0.0 \
     --hash=sha256:355216845c60bd96232cd8d8c40e8f9765cc86f46880e43a8fd22dc1a1a8cab1 \

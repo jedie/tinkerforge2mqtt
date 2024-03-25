@@ -2,6 +2,7 @@ import dataclasses
 import sys
 
 from cli_base.systemd.data_classes import BaseSystemdServiceInfo, BaseSystemdServiceTemplateContext
+from ha_services.mqtt4homeassistant.data_classes import MqttSettings
 
 
 @dataclasses.dataclass
@@ -21,20 +22,6 @@ class SystemdServiceInfo(BaseSystemdServiceInfo):
     """
 
     template_context: SystemdServiceTemplateContext = dataclasses.field(default_factory=SystemdServiceTemplateContext)
-
-
-@dataclasses.dataclass
-class MqttSettings:
-    """
-    Credentials to MQTT server that should be used.
-    """
-
-    host: str = 'mqtt.eclipseprojects.io'  # public test MQTT broker service
-    port: int = 1883
-    user_name: str = ''
-    password: str = ''
-
-    unique_id_prefix: str = 'tinkerforge2mqtt'
 
 
 @dataclasses.dataclass
