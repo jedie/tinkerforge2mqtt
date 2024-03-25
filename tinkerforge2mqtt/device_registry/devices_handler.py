@@ -1,9 +1,11 @@
 import logging
 
+from ha_services.mqtt4homeassistant.device import MainMqttDevice
 from paho.mqtt.client import Client
 from tinkerforge.device_factory import get_device_class
 from tinkerforge.ip_connection import Device, IPConnection
 
+import tinkerforge2mqtt
 from tinkerforge2mqtt.device_map import map_registry
 from tinkerforge2mqtt.user_settings import UserSettings
 
@@ -22,6 +24,13 @@ class DevicesHandler:
         self.ipcon = ipcon
         self.mqtt_client = mqtt_client
         self.user_settings = user_settings
+
+        self.main_mqtt_device = MainMqttDevice(
+            name='tinkerforge2mqtt',
+            uid='tinkerforge2mqtt',
+            manufacturer='tinkerforge2mqtt',
+            sw_version=tinkerforge2mqtt.__version__,
+        )
 
         self.map_instances = {}
 
@@ -53,9 +62,13 @@ class DevicesHandler:
                 logger.error(f'No mapper found for {TinkerforgeDeviceClass.__name__} ({device_identifier=})')
                 return
 
-            device: Device = TinkerforgeDeviceClass(uid=uid, ipcon=self.ipcon)
+            device: Device = TinkerforgeDeviceClass(
+                uid=uid,
+                ipcon=self.ipcon,
+            )
 
             map_instance = MapClass(
+                main_mqtt_device=self.main_mqtt_device,
                 device=device,
                 mqtt_client=self.mqtt_client,
                 user_settings=self.user_settings,

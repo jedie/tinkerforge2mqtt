@@ -1,12 +1,10 @@
 import logging
 
 from ha_services.mqtt4homeassistant.components.sensor import Sensor
-from paho.mqtt.client import Client
 from tinkerforge.brick_hat_zero import BrickHATZero
 
 from tinkerforge2mqtt.device_map import register_map_class
 from tinkerforge2mqtt.device_map_utils.base import DeviceMapBase, print_exception_decorator
-from tinkerforge2mqtt.user_settings import UserSettings
 
 
 logger = logging.getLogger(__name__)
@@ -18,15 +16,9 @@ class BrickHATZeroMapper(DeviceMapBase):
 
     device_identifier = BrickHATZero.DEVICE_IDENTIFIER
 
-    def __init__(
-        self,
-        *,
-        device: BrickHATZero,
-        mqtt_client: Client,
-        user_settings: UserSettings,
-    ):
+    def __init__(self, *, device: BrickHATZero, **kwargs):
         self.device: BrickHATZero = device
-        super().__init__(device=device, mqtt_client=mqtt_client, user_settings=user_settings)
+        super().__init__(device=device, **kwargs)
 
     @print_exception_decorator
     def setup_sensors(self):
