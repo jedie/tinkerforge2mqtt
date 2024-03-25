@@ -1,4 +1,5 @@
 import logging
+import socket
 
 from ha_services.mqtt4homeassistant.device import MainMqttDevice
 from paho.mqtt.client import Client
@@ -26,8 +27,8 @@ class DevicesHandler:
         self.user_settings = user_settings
 
         self.main_mqtt_device = MainMqttDevice(
-            name='tinkerforge2mqtt',
-            uid='tinkerforge2mqtt',
+            name=f'tinkerforge2mqtt@{socket.gethostname()}',
+            uid=user_settings.mqtt.main_uid,
             manufacturer='tinkerforge2mqtt',
             sw_version=tinkerforge2mqtt.__version__,
         )

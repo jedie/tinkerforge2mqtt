@@ -390,9 +390,9 @@ editorconfig==0.12.4 \
     # via
     #   manageprojects
     #   tinkerforge2mqtt (pyproject.toml)
-filelock==3.13.1 \
-    --hash=sha256:521f5f56c50f8426f5e03ad3b281b490a87ef15bc6c526f168290f0c7148d44e \
-    --hash=sha256:57dbda9b35157b05fb3e58ee91448612eb674172fab98ee235ccb0b5bee19a1c
+filelock==3.13.2 \
+    --hash=sha256:9e2106260b5f65600a31bc503721e3db7e64598bb406ebc5921aeaafe441ba34 \
+    --hash=sha256:e4c33bc026ace328551af557d4d34f59566c98acd4ed66c13b4335f114f04f7a
     # via
     #   tox
     #   virtualenv
@@ -455,9 +455,9 @@ graylint==1.0.0 \
     --hash=sha256:d79504a51d921b3b92182f096dd05126238f3f48e2d41ebbc8278c8e4b1a7f9c \
     --hash=sha256:f7e1296cd1595d818259fdfc13b484856889c2bbe81f4ac4724e3bc39b43e973
     # via darker
-ha-services==2.1.0 \
-    --hash=sha256:bf39359b44101230b31dc764417ea67c946c4d7d486f029148dc7ad20bf74df4 \
-    --hash=sha256:c0f8a86f885636a948f996a1e6120132b89d2b0e86ead61904a6bd83b761cfd3
+ha-services==2.2.0rc0 \
+    --hash=sha256:2ecd3cbcac3faeb63b41cae7565c53b69eba161bf1532ec25577371366a97534 \
+    --hash=sha256:ba4ebe6bef0ef6a80c7e9c7f7f309552ec018131aef2eb233234627345dcfae7
     # via tinkerforge2mqtt (pyproject.toml)
 idna==3.6 \
     --hash=sha256:9ecdbbd083b06798ae1e86adcbfe8ab1479cf864e4ee30fe4e46a003d12491ca \
