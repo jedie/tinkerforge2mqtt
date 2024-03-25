@@ -3,7 +3,7 @@ import logging
 from functools import wraps
 
 from ha_services.mqtt4homeassistant.components.sensor import Sensor
-from ha_services.mqtt4homeassistant.device import MqttDevice
+from ha_services.mqtt4homeassistant.device import MainMqttDevice, MqttDevice
 from paho.mqtt.client import Client
 from rich import print  # noqa
 from rich.console import Console
@@ -37,15 +37,18 @@ class DeviceMapBase(abc.ABC):
     def __init__(
         self,
         *,
+        main_mqtt_device: MainMqttDevice,
         device: Device,
         mqtt_client: Client,
         user_settings: UserSettings,
     ):
+        self.main_mqtt_device = main_mqtt_device
         self.device = device
         self.mqtt_client = mqtt_client
         self.user_settings = user_settings
 
         self.mqtt_device = MqttDevice(
+            main_device=main_mqtt_device,
             name=f'{device.DEVICE_DISPLAY_NAME} ({device.uid_string})',
             uid=device.uid_string,
             manufacturer='Tinkerforge',
@@ -107,6 +110,8 @@ class DeviceMapBase(abc.ABC):
             logger.info(f'{self.device.DEVICE_DISPLAY_NAME} status LED config: {value}')
             self.led_config_sensor.set_state(state=value)
             self.led_config_sensor.publish_config_and_state(self.mqtt_client)
+
+        self.main_mqtt_device.poll_and_publish(self.mqtt_client)
 
     def get_sw_version(self) -> str:
         api_version = self.device.get_api_version()

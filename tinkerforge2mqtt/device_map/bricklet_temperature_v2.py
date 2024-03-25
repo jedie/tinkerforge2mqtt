@@ -1,12 +1,10 @@
 import logging
 
 from ha_services.mqtt4homeassistant.components.sensor import Sensor
-from paho.mqtt.client import Client
 from tinkerforge.bricklet_temperature_v2 import BrickletTemperatureV2
 
 from tinkerforge2mqtt.device_map import register_map_class
 from tinkerforge2mqtt.device_map_utils.base import DeviceMapBase, print_exception_decorator
-from tinkerforge2mqtt.user_settings import UserSettings
 
 
 logger = logging.getLogger(__name__)
@@ -18,15 +16,9 @@ class BrickletTemperatureV2Mapper(DeviceMapBase):
 
     device_identifier = BrickletTemperatureV2.DEVICE_IDENTIFIER
 
-    def __init__(
-        self,
-        *,
-        device: BrickletTemperatureV2,
-        mqtt_client: Client,
-        user_settings: UserSettings,
-    ):
+    def __init__(self, *, device: BrickletTemperatureV2, **kwargs):
         self.device: BrickletTemperatureV2 = device
-        super().__init__(device=device, mqtt_client=mqtt_client, user_settings=user_settings)
+        super().__init__(device=device, **kwargs)
 
     @print_exception_decorator
     def setup_sensors(self):

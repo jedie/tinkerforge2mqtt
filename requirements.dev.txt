@@ -455,9 +455,9 @@ graylint==1.0.0 \
     --hash=sha256:d79504a51d921b3b92182f096dd05126238f3f48e2d41ebbc8278c8e4b1a7f9c \
     --hash=sha256:f7e1296cd1595d818259fdfc13b484856889c2bbe81f4ac4724e3bc39b43e973
     # via darker
-ha-services==2.0.1 \
-    --hash=sha256:183fae280eb260979c9c87c8947a4bdb3700f9bcde8e7f2b72e88e13aa9fa249 \
-    --hash=sha256:8229354845d7a11df3667d561cd83dd319c6cc221eb3c8af7b5bbba442d70ec6
+ha-services==2.1.0 \
+    --hash=sha256:bf39359b44101230b31dc764417ea67c946c4d7d486f029148dc7ad20bf74df4 \
+    --hash=sha256:c0f8a86f885636a948f996a1e6120132b89d2b0e86ead61904a6bd83b761cfd3
     # via tinkerforge2mqtt (pyproject.toml)
 idna==3.6 \
     --hash=sha256:9ecdbbd083b06798ae1e86adcbfe8ab1479cf864e4ee30fe4e46a003d12491ca \
