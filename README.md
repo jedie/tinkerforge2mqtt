@@ -11,6 +11,7 @@ Connect Tinkerforge Bricks/Bricklets via MQTT to Home Assistant...
 Currently only a few Bricks/Bricklets are supported.
 See existing [/tinkerforge2mqtt/device_map/](https://github.com/jedie/tinkerforge2mqtt/tree/main/tinkerforge2mqtt/device_map) files.
 
+Forum thread: https://www.tinkerunity.org/topic/12220-tinkerforge2mqtt (de)
 
 ## Usage
 
