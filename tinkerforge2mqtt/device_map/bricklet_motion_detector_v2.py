@@ -42,10 +42,10 @@ class BrickletMotionDetectorV2Mapper(DeviceMapBase):
     def callback_motion_detected(self):
         logger.debug(f'Motion detected (UID: {self.device.uid_string})')
         self.motion_detected.set_state(self.motion_detected.ON)
-        self.motion_detected.publish_config_and_state(self.mqtt_client)
+        self.motion_detected.publish(self.mqtt_client)
 
     @print_exception_decorator
     def callback_detection_cycle_ended(self):
         logger.debug(f'Detection Cycle Ended (UID: {self.device.uid_string})')
         self.motion_detected.set_state(self.motion_detected.OFF)
-        self.motion_detected.publish_config_and_state(self.mqtt_client)
+        self.motion_detected.publish(self.mqtt_client)

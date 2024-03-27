@@ -87,18 +87,18 @@ class BrickletVoltageCurrentV2Mapper(DeviceMapBase):
         logger.info(f'Voltage callback: {value}mV (UID: {self.device.uid_string})')
         voltage = value / 1000.0
         self.voltage.set_state(voltage)
-        self.voltage.publish_config_and_state(self.mqtt_client)
+        self.voltage.publish(self.mqtt_client)
 
     @print_exception_decorator
     def callback_current(self, value):
         logger.info(f'Current callback: {value}mA (UID: {self.device.uid_string})')
         current = value / 1000.0
         self.current.set_state(current)
-        self.current.publish_config_and_state(self.mqtt_client)
+        self.current.publish(self.mqtt_client)
 
     @print_exception_decorator
     def callback_power(self, value):
         logger.info(f'Current callback: {value}mW (UID: {self.device.uid_string})')
         power = value / 1000.0
         self.power.set_state(power)
-        self.power.publish_config_and_state(self.mqtt_client)
+        self.power.publish(self.mqtt_client)

@@ -50,4 +50,4 @@ class BrickletTemperatureV2Mapper(DeviceMapBase):
         temperature = value / 100
         logger.info(f'Temperature callback: {temperature}°C (UID: {self.device.uid_string})')
         self.temperature.set_state(temperature)
-        self.temperature.publish_config_and_state(self.mqtt_client)
+        self.temperature.publish(self.mqtt_client)

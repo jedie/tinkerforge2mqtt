@@ -54,7 +54,7 @@ class BrickletSolidStateRelayV2Mapper(DeviceMapBase):
             self.relay_switch.set_state(self.relay_switch.ON)
         else:
             self.relay_switch.set_state(self.relay_switch.OFF)
-        self.relay_switch.publish_config_and_state(self.mqtt_client)
+        self.relay_switch.publish(self.mqtt_client)
 
     @print_exception_decorator
     def relay_callback(self, *, client: Client, component: Switch, old_state: str, new_state: str):

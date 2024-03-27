@@ -55,13 +55,13 @@ class BrickletIndustrialDualRelayMapper(DeviceMapBase):
             self.relay0_switch.set_state(self.relay0_switch.ON)
         else:
             self.relay0_switch.set_state(self.relay0_switch.OFF)
-        self.relay0_switch.publish_config_and_state(self.mqtt_client)
+        self.relay0_switch.publish(self.mqtt_client)
 
         if relay1value:
             self.relay1_switch.set_state(self.relay1_switch.ON)
         else:
             self.relay1_switch.set_state(self.relay1_switch.OFF)
-        self.relay1_switch.publish_config_and_state(self.mqtt_client)
+        self.relay1_switch.publish(self.mqtt_client)
 
     @print_exception_decorator
     def relay0_callback(self, *, client: Client, component: Switch, old_state: str, new_state: str):

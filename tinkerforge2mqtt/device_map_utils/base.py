@@ -102,14 +102,14 @@ class DeviceMapBase(abc.ABC):
             value = get_chip_temperature()
             logger.debug(f'{self.device.DEVICE_DISPLAY_NAME} chip temperature: {value}°C')
             self.chip_temperature_sensor.set_state(state=value)
-            self.chip_temperature_sensor.publish_config_and_state(self.mqtt_client)
+            self.chip_temperature_sensor.publish(self.mqtt_client)
             logger.info(f'Chip temperature: {value}°C: {self.chip_temperature_sensor}')
 
         if get_status_led_config := getattr(self.device, 'get_status_led_config', None):
             value = get_status_led_config()
             logger.info(f'{self.device.DEVICE_DISPLAY_NAME} status LED config: {value}')
             self.led_config_sensor.set_state(state=value)
-            self.led_config_sensor.publish_config_and_state(self.mqtt_client)
+            self.led_config_sensor.publish(self.mqtt_client)
 
         self.main_mqtt_device.poll_and_publish(self.mqtt_client)
 
