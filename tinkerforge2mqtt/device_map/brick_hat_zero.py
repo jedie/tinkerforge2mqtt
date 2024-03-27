@@ -51,4 +51,4 @@ class BrickHATZeroMapper(DeviceMapBase):
     def callback_usb_voltage(self, value):
         logger.debug(f'USB Voltage: {value / 1000}V (UID: {self.device.uid_string})')
         self.usb_voltage_sensor.set_state(state=value / 1000)
-        self.usb_voltage_sensor.publish_config_and_state(self.mqtt_client)
+        self.usb_voltage_sensor.publish(self.mqtt_client)
