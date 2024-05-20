@@ -5,6 +5,7 @@ from tinkerforge.bricklet_humidity_v2 import BrickletHumidityV2
 
 from tinkerforge2mqtt.device_map import register_map_class
 from tinkerforge2mqtt.device_map_utils.base import DeviceMapBase, print_exception_decorator
+from tinkerforge2mqtt.utilities.dew_point import calculate_dew_point
 
 
 logger = logging.getLogger(__name__)
@@ -42,6 +43,15 @@ class BrickletHumidityV2Mapper(DeviceMapBase):
             unit_of_measurement='°C',
             suggested_display_precision=2,
         )
+        self.dew_point = Sensor(
+            device=self.mqtt_device,
+            name='Dew Point Temperature',
+            uid='temperature',
+            device_class='temperature',
+            state_class='measurement',
+            unit_of_measurement='°C',
+            suggested_display_precision=2,
+        )
 
     @print_exception_decorator
     def setup_callbacks(self):
@@ -70,10 +80,21 @@ class BrickletHumidityV2Mapper(DeviceMapBase):
         logger.info(f'Temperature callback: {temperature}°C (UID: {self.device.uid_string})')
         self.temperature.set_state(temperature)
         self.temperature.publish(self.mqtt_client)
+        self.set_and_publish_dew_point()
 
     @print_exception_decorator
     def callback_humidity(self, value):
         humidity = value / 100
-        logger.info(f'Temperature callback: {humidity}°C (UID: {self.device.uid_string})')
+        logger.info(f'Humidity callback: {humidity}% (UID: {self.device.uid_string})')
         self.humidity.set_state(humidity)
         self.humidity.publish(self.mqtt_client)
+        self.set_and_publish_dew_point()
+
+    def set_and_publish_dew_point(self):
+        dew_point = calculate_dew_point(
+            temperature=self.temperature.value,
+            humidity=self.humidity.value,
+        )
+        logger.info(f'Dew Point: {dew_point}°C (UID: {self.device.uid_string})')
+        self.dew_point.set_state(dew_point)
+        self.dew_point.publish(self.mqtt_client)
