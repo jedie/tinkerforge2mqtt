@@ -74,6 +74,6 @@ class BrickletHumidityV2Mapper(DeviceMapBase):
     @print_exception_decorator
     def callback_humidity(self, value):
         humidity = value / 100
-        logger.info(f'Temperature callback: {humidity}°C (UID: {self.device.uid_string})')
+        logger.info(f'Humidity callback: {humidity}% (UID: {self.device.uid_string})')
         self.humidity.set_state(humidity)
         self.humidity.publish(self.mqtt_client)
