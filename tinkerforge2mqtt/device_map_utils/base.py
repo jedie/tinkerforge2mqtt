@@ -1,33 +1,19 @@
 import abc
 import logging
-from functools import wraps
 
 from ha_services.mqtt4homeassistant.components.sensor import Sensor
 from ha_services.mqtt4homeassistant.device import MainMqttDevice, MqttDevice
 from paho.mqtt.client import Client
 from rich import print  # noqa
-from rich.console import Console
 from tinkerforge.ip_connection import Device
 
 from tinkerforge2mqtt.device_map_utils.generics import iter_interest_functions
+from tinkerforge2mqtt.device_map_utils.led_config import BrickletLedConfigSelect
+from tinkerforge2mqtt.device_map_utils.utils import print_exception_decorator
 from tinkerforge2mqtt.user_settings import UserSettings
 
 
 logger = logging.getLogger(__name__)
-
-
-def print_exception_decorator(func):
-
-    @wraps(func)
-    def func_wrapper(*args, **kwargs):
-        try:
-            return func(*args, **kwargs)
-        except Exception as err:
-            console = Console()
-            console.print_exception(show_locals=True)
-            raise SystemExit from err
-
-    return func_wrapper
 
 
 class DeviceMapBase(abc.ABC):
@@ -75,12 +61,7 @@ class DeviceMapBase(abc.ABC):
             logger.info(f'Sensor: {self.chip_temperature_sensor}')
 
         if hasattr(self.device, 'get_status_led_config'):
-            self.led_config_sensor = Sensor(
-                device=self.mqtt_device,
-                name='LED Config',
-                uid='led_config',
-                device_class='enum',
-            )
+            self.led_config_sensor = BrickletLedConfigSelect(device=self.device, mqtt_device=self.mqtt_device)
             logger.info(f'Sensor: {self.led_config_sensor}')
 
     @abc.abstractmethod
@@ -105,11 +86,8 @@ class DeviceMapBase(abc.ABC):
             self.chip_temperature_sensor.publish(self.mqtt_client)
             logger.info(f'Chip temperature: {value}°C: {self.chip_temperature_sensor}')
 
-        if get_status_led_config := getattr(self.device, 'get_status_led_config', None):
-            value = get_status_led_config()
-            logger.info(f'{self.device.DEVICE_DISPLAY_NAME} status LED config: {value}')
-            self.led_config_sensor.set_state(state=value)
-            self.led_config_sensor.publish(self.mqtt_client)
+        if hasattr(self, 'led_config_sensor'):
+            self.led_config_sensor.poll(self.mqtt_client)
 
         self.main_mqtt_device.poll_and_publish(self.mqtt_client)
 
