@@ -4,8 +4,8 @@ from ha_services.mqtt4homeassistant.components.sensor import Sensor
 from tinkerforge.bricklet_voltage_current_v2 import BrickletVoltageCurrentV2
 
 from tinkerforge2mqtt.device_map import register_map_class
-from tinkerforge2mqtt.device_map_utils.base import DeviceMapBase, print_exception_decorator
-
+from tinkerforge2mqtt.device_map_utils.base import DeviceMapBase
+from tinkerforge2mqtt.device_map_utils.utils import print_exception_decorator
 
 logger = logging.getLogger(__name__)
 
