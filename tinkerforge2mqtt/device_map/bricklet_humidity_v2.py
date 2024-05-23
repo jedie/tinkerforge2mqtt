@@ -46,7 +46,7 @@ class BrickletHumidityV2Mapper(DeviceMapBase):
         self.dew_point = Sensor(
             device=self.mqtt_device,
             name='Dew Point Temperature',
-            uid='temperature',
+            uid='dew_point',
             device_class='temperature',
             state_class='measurement',
             unit_of_measurement='°C',
@@ -91,10 +91,11 @@ class BrickletHumidityV2Mapper(DeviceMapBase):
         self.set_and_publish_dew_point()
 
     def set_and_publish_dew_point(self):
-        dew_point = calculate_dew_point(
-            temperature=self.temperature.value,
-            humidity=self.humidity.value,
-        )
-        logger.info(f'Dew Point: {dew_point}°C (UID: {self.device.uid_string})')
-        self.dew_point.set_state(dew_point)
-        self.dew_point.publish(self.mqtt_client)
+        if self.temperature.value and self.humidity.value:
+            dew_point = calculate_dew_point(
+                temperature=self.temperature.value,
+                humidity=self.humidity.value,
+            )
+            logger.info(f'Dew Point: {dew_point}°C (UID: {self.device.uid_string})')
+            self.dew_point.set_state(dew_point)
+            self.dew_point.publish(self.mqtt_client)
