@@ -1,14 +1,15 @@
 import logging
 import time
 
-import rich_click as click
-from cli_base.cli_tools.verbosity import OPTION_KWARGS_VERBOSE
+from cli_base.tyro_commands import TyroVerbosityArgType
 from ha_services.mqtt4homeassistant.mqtt import get_connected_client
-from rich import print  # noqa
-from rich import get_console
+from rich import (
+    get_console,
+    print,  # noqa
+)
 from tinkerforge.ip_connection import IPConnection
 
-from tinkerforge2mqtt.cli_app import cli
+from tinkerforge2mqtt.cli_app import app
 from tinkerforge2mqtt.cli_app.settings import get_user_settings
 from tinkerforge2mqtt.device_registry.devices_handler import DevicesHandler
 from tinkerforge2mqtt.user_settings import UserSettings
@@ -17,7 +18,7 @@ from tinkerforge2mqtt.user_settings import UserSettings
 logger = logging.getLogger(__name__)
 
 
-def setup_logging(*, verbosity: int, log_format='%(message)s'):  # Move to cli_tools
+def setup_logging(*, verbosity: TyroVerbosityArgType, log_format: str = '%(message)s'):  # Move to cli_tools
     if verbosity == 0:
         level = logging.ERROR
     elif verbosity == 1:
@@ -44,9 +45,8 @@ def setup_logging(*, verbosity: int, log_format='%(message)s'):  # Move to cli_t
     )
 
 
-@cli.command()
-@click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE | {'default': 0})
-def publish_loop(verbosity: int):
+@app.command
+def publish_loop(verbosity: TyroVerbosityArgType):
     """
     Publish Tinkerforge devices events via MQTT to Home Assistant.
     """

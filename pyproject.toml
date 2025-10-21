@@ -7,47 +7,32 @@ readme = "README.md"
 authors = [
     {name = 'Jens Diemer', email = 'git@jensdiemer.de'}
 ]
-requires-python = ">=3.10"
-
+requires-python = ">=3.11"
 dependencies = [
     "tinkerforge",  # https://www.tinkerforge.com/doc/Source_Code.html
     "ha-services>=2.5.0",  # https://github.com/jedie/ha-services
     "cli-base-utilities",  # https://github.com/jedie/cli-base-utilities
     "bx_py_utils",  # https://github.com/boxine/bx_py_utils
-    "click",  # https://github.com/pallets/click/
-    "rich-click",  # https://github.com/ewels/rich-click
+    "tyro",  # https://github.com/brentyi/tyro
     "rich",  # https://github.com/Textualize/rich
 ]
-[project.optional-dependencies]
+
+[dependency-groups]
 dev = [
     "manageprojects",  # https://github.com/jedie/manageprojects
     "urllib3", # for bx_py_utils.test_utils.deny_requests.deny_any_real_request() in tests
-    "pip-tools",  # https://github.com/jazzband/pip-tools/
-    "tox",  # https://github.com/tox-dev/tox
+    "uv",  # https://github.com/astral-sh/uv
+    "hatchling",  # https://github.com/pypa/hatch/tree/master/backend
+    "nox",  # https://github.com/wntrblm/nox
     "coverage",  # https://github.com/nedbat/coveragepy
-    "autopep8",  # https://github.com/hhatto/autopep8
-    "pyupgrade",  # https://github.com/asottile/pyupgrade
-    "flake8",  # https://github.com/pycqa/flake8
-    "flake8-bugbear",  # https://github.com/PyCQA/flake8-bugbear
-    "pyflakes",  # https://github.com/PyCQA/pyflakes
+    "ruff", # https://github.com/astral-sh/ruff
     "codespell",  # https://github.com/codespell-project/codespell
     "EditorConfig",  # https://github.com/editorconfig/editorconfig-core-py
-    "safety",  # https://github.com/pyupio/safety
+    "pip-audit",  # https://github.com/pypa/pip-audit
     "mypy",  # https://github.com/python/mypy
     "twine",  # https://github.com/pypa/twine
+    "pre-commit",  # https://github.com/pre-commit/pre-commit
     "typeguard",  # https://github.com/agronholm/typeguard/
-
-    # https://github.com/akaihola/darker
-    # https://github.com/ikamensh/flynt
-    # https://github.com/pycqa/isort
-    # https://github.com/pygments/pygments
-    "darker[flynt, isort, color]",
-
-    "tomli",  # https://github.com/hukkin/tomli
-    #
-    # tomli only needed for Python <3.11, but see pip bug:
-    # https://github.com/pypa/pip/issues/9644 / https://github.com/jazzband/pip-tools/issues/1866
-    #'tomli;python_version<"3.11"',  # https://github.com/hukkin/tomli
 ]
 
 [project.urls]
@@ -58,42 +43,55 @@ Source = "https://github.com/jedie/tinkerforge2mqtt"
 tinkerforge2mqtt_app = "tinkerforge2mqtt.__main__:main"
 tinkerforge2mqtt_dev = "tinkerforge2mqtt.cli_dev:main"
 
+
 [build-system]
-requires = ["setuptools>=61.0", "setuptools_scm>=7.1"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.setuptools.packages.find]
-where = ["."]
-include = ["tinkerforge2mqtt*"]
+[tool.hatch.build.targets.wheel]
+packages = ["tinkerforge2mqtt"]
 
-[tool.setuptools.dynamic]
-version = {attr = "tinkerforge2mqtt.__version__"}
+[tool.hatch.version]
+path = "tinkerforge2mqtt/__init__.py"
 
 
-[tool.darker]
-src = ['.']
-revision = "origin/main..."
-line_length = 119
-color = true
-skip_string_normalization = true
-diff = false
-check = false
-stdout = false
-isort = true
-lint = [
-    "flake8",
+[tool.cli_base.pip_audit]
+requirements=["requirements.dev.txt"]
+strict=true
+require_hashes=true
+ignore-vuln=[
+    "GHSA-4xh5-x5gv-qwph",  # https://github.com/advisories/GHSA-4xh5-x5gv-qwph
 ]
-log_level = "INFO"
 
 
-[tool.isort]
-# https://pycqa.github.io/isort/docs/configuration/config_files/#pyprojecttoml-preferred-format
-atomic=true
-profile='black'
-skip_glob=['.*', '*/htmlcov/*']
-known_first_party=['tinkerforge2mqtt']
-line_length=119
-lines_after_imports=2
+[tool.cli_base]
+version_module_name = "tinkerforge2mqtt"  # Used by "update-readme-history" git hook
+
+
+[tool.ruff]
+# https://docs.astral.sh/ruff/configuration/
+line-length = 120
+exclude = [
+  ".*/",
+]
+
+[tool.ruff.lint]
+preview = true  # Needed for some of the rules
+extend-select = [
+    "E", # pycodestyle: https://docs.astral.sh/ruff/rules/#error-e
+    "I", # isort: https://docs.astral.sh/ruff/rules/#isort-i
+]
+ignore = [
+    "E402", # https://docs.astral.sh/ruff/rules/module-import-not-at-top-of-file/
+    "E731", # https://docs.astral.sh/ruff/rules/lambda-assignment/
+]
+
+[tool.ruff.lint.isort]
+# https://docs.astral.sh/ruff/settings/#lintisort
+lines-after-imports = 2
+
+[tool.ruff.format]
+quote-style = "single"
 
 
 [tool.coverage.run]
@@ -116,24 +114,6 @@ exclude_lines = [
 ]
 
 
-[tool.tox]  # https://tox.wiki/en/latest/config.html#pyproject-toml
-legacy_tox_ini = """
-[tox]
-isolated_build = True
-envlist = py{312,311,310}
-skip_missing_interpreters = True
-
-[testenv]
-passenv = *
-skip_install = true
-commands_pre =
-    pip install -U pip-tools
-    pip-sync requirements.dev.txt
-commands =
-    {envpython} -m coverage run --context='{envname}'
-"""
-
-
 [tool.mypy]
 warn_unused_configs = true
 ignore_missing_imports = true
@@ -147,9 +127,10 @@ exclude = ['.venv', 'tests']
 initial_revision = "9e29a86"
 initial_date = 2024-02-29T22:32:49+01:00
 cookiecutter_template = "https://github.com/jedie/cookiecutter_templates/"
-cookiecutter_directory = "piptools-python"
+cookiecutter_directory = "uv-python"
 applied_migrations = [
     "765b8fb", # 2024-03-12T09:08:01+01:00
+    "2d314b4", # 2025-10-21T13:55:34+02:00
 ]
 
 [manageprojects.cookiecutter_context.cookiecutter]
