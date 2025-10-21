@@ -3,13 +3,13 @@ import sys
 import time
 from pathlib import Path
 
-import rich_click as click
-from cli_base.cli_tools.verbosity import OPTION_KWARGS_VERBOSE, setup_logging
+from cli_base.cli_tools.verbosity import setup_logging
+from cli_base.tyro_commands import TyroVerbosityArgType
 from rich import print  # noqa
 from tinkerforge.device_factory import get_device_class
 from tinkerforge.ip_connection import Error, IPConnection
 
-from tinkerforge2mqtt.cli_app import cli
+from tinkerforge2mqtt.cli_app import app
 from tinkerforge2mqtt.cli_app.settings import get_user_settings
 from tinkerforge2mqtt.device_map_utils.generics import iter_interest_functions
 from tinkerforge2mqtt.device_registry.devices_handler import DevicesHandler
@@ -19,9 +19,8 @@ from tinkerforge2mqtt.user_settings import UserSettings
 logger = logging.getLogger(__name__)
 
 
-@cli.command()
-@click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE | {'default': 2})
-def local_hat_info(verbosity: int):
+@app.command
+def local_hat_info(verbosity: TyroVerbosityArgType):
     """
     Just print information about from `/proc/device-tree/hat/` files.
     """
@@ -40,9 +39,8 @@ def local_hat_info(verbosity: int):
             print(f'{file_path.name}: {content}')
 
 
-@cli.command()
-@click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE | {'default': 2})
-def discover(verbosity: int):
+@app.command
+def discover(verbosity: TyroVerbosityArgType):
     """
     Discover Victron devices with Instant Readout
     """
@@ -95,9 +93,8 @@ def discover(verbosity: int):
     ipcon.disconnect()
 
 
-@cli.command()
-@click.option('-v', '--verbosity', **OPTION_KWARGS_VERBOSE | {'default': 2})
-def discover_map(verbosity: int):
+@app.command
+def discover_map(verbosity: TyroVerbosityArgType):
     """
     Discover Victron devices with Instant Readout
     """
