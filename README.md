@@ -43,7 +43,7 @@ Clone the sources and just call the CLI to create a Python Virtualenv, e.g.:
 ```
 usage: ./cli.py [-h]
                 {discover,discover-map,edit-settings,local-hat-info,print-settings,publish-loop,systemd-debug,systemd-
-remove,systemd-setup,systemd-status,systemd-stop,update-readme-history,version}
+logs,systemd-remove,systemd-setup,systemd-status,systemd-stop,update-readme-history,version}
 
 
 
@@ -51,8 +51,8 @@ remove,systemd-setup,systemd-status,systemd-stop,update-readme-history,version}
 │ -h, --help        show this help message and exit                                                                  │
 ╰────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ╭─ subcommands ──────────────────────────────────────────────────────────────────────────────────────────────────────╮
-│ {discover,discover-map,edit-settings,local-hat-info,print-settings,publish-loop,systemd-debug,systemd-remove,syste │
-│ md-setup,systemd-status,systemd-stop,update-readme-history,version}                                                │
+│ {discover,discover-map,edit-settings,local-hat-info,print-settings,publish-loop,systemd-debug,systemd-logs,systemd │
+│ -remove,systemd-setup,systemd-status,systemd-stop,update-readme-history,version}                                   │
 │     discover      Discover Victron devices with Instant Readout                                                    │
 │     discover-map  Discover Victron devices with Instant Readout                                                    │
 │     edit-settings                                                                                                  │
@@ -64,6 +64,7 @@ remove,systemd-setup,systemd-status,systemd-stop,update-readme-history,version}
 │     publish-loop  Publish Tinkerforge devices events via MQTT to Home Assistant.                                   │
 │     systemd-debug                                                                                                  │
 │                   Print Systemd service template + context + rendered file content.                                │
+│     systemd-logs  Show systemd service logs. (May need sudo)                                                       │
 │     systemd-remove                                                                                                 │
 │                   Remove Systemd service file. (May need sudo)                                                     │
 │     systemd-setup                                                                                                  │
@@ -141,6 +142,8 @@ apshot-files,version}
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
+* [v0.9.3](https://github.com/jedie/tinkerforge2mqtt/compare/v0.9.2...v0.9.3)
+  * 2025-10-25 - NEW: Show systemd service logs via CLI
 * [v0.9.2](https://github.com/jedie/tinkerforge2mqtt/compare/v0.9.1...v0.9.2)
   * 2025-10-25 - Cleanup: Remove obsolete files
   * 2025-10-21 - switch to uv-python
@@ -154,12 +157,12 @@ apshot-files,version}
   * 2024-05-20 - BrickletHumidityV2Mapper: Calculate "dew point"
   * 2024-05-20 - fix huminity log message
   * 2024-05-20 - Update requirements
-* [v0.8.0](https://github.com/jedie/tinkerforge2mqtt/compare/v0.7.0...v0.8.0)
-  * 2024-04-12 - Add support for BrickletAnalogInV3
-  * 2024-04-12 - Update requirements
 
 <details><summary>Expand older history entries ...</summary>
 
+* [v0.8.0](https://github.com/jedie/tinkerforge2mqtt/compare/v0.7.0...v0.8.0)
+  * 2024-04-12 - Add support for BrickletAnalogInV3
+  * 2024-04-12 - Update requirements
 * [v0.7.0](https://github.com/jedie/tinkerforge2mqtt/compare/v0.6.0...v0.7.0)
   * 2024-03-27 - Update to ha-services==2.5.0
 * [v0.6.0](https://github.com/jedie/tinkerforge2mqtt/compare/v0.5.0...v0.6.0)
