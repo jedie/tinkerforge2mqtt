@@ -141,7 +141,7 @@ apshot-files,version}
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
-* [**dev**](https://github.com/jedie/tinkerforge2mqtt/compare/v0.9.1...main)
+* [v0.9.2](https://github.com/jedie/tinkerforge2mqtt/compare/v0.9.1...v0.9.2)
   * 2025-10-25 - Cleanup: Remove obsolete files
   * 2025-10-21 - switch to uv-python
   * 2025-09-20 - Update requirements
