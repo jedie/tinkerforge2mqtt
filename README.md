@@ -143,6 +143,7 @@ apshot-files,version}
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [v0.9.3](https://github.com/jedie/tinkerforge2mqtt/compare/v0.9.2...v0.9.3)
+  * 2025-10-25 - Fix #27 BrickletHumidityV2Mapper AttributeError
   * 2025-10-25 - Add PyCharm config files
   * 2025-10-25 - NEW: Show systemd service logs via CLI
 * [v0.9.2](https://github.com/jedie/tinkerforge2mqtt/compare/v0.9.1...v0.9.2)
