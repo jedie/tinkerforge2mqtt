@@ -1,6 +1,7 @@
 import logging
 
 from ha_services.mqtt4homeassistant.components.sensor import Sensor
+from ha_services.mqtt4homeassistant.data_classes import NO_STATE
 from tinkerforge.bricklet_humidity_v2 import BrickletHumidityV2
 
 from tinkerforge2mqtt.device_map import register_map_class
@@ -91,11 +92,19 @@ class BrickletHumidityV2Mapper(DeviceMapBase):
         self.set_and_publish_dew_point()
 
     def set_and_publish_dew_point(self):
-        if self.temperature.state and self.humidity.state:
-            dew_point = calculate_dew_point(
-                temperature=self.temperature.state,
-                humidity=self.humidity.state,
-            )
-            logger.info(f'Dew Point: {dew_point}°C (UID: {self.device.uid_string})')
-            self.dew_point.set_state(dew_point)
-            self.dew_point.publish(self.mqtt_client)
+        temperature = self.temperature.state
+        humidity = self.humidity.state
+
+        if temperature is NO_STATE:
+            return
+
+        if humidity is NO_STATE:
+            return
+
+        dew_point = calculate_dew_point(
+            temperature=temperature,
+            humidity=humidity,
+        )
+        logger.info(f'Dew Point: {dew_point}°C (UID: {self.device.uid_string})')
+        self.dew_point.set_state(dew_point)
+        self.dew_point.publish(self.mqtt_client)
