@@ -91,10 +91,10 @@ class BrickletHumidityV2Mapper(DeviceMapBase):
         self.set_and_publish_dew_point()
 
     def set_and_publish_dew_point(self):
-        if self.temperature.value and self.humidity.value:
+        if self.temperature.state and self.humidity.state:
             dew_point = calculate_dew_point(
-                temperature=self.temperature.value,
-                humidity=self.humidity.value,
+                temperature=self.temperature.state,
+                humidity=self.humidity.state,
             )
             logger.info(f'Dew Point: {dew_point}°C (UID: {self.device.uid_string})')
             self.dew_point.set_state(dew_point)
