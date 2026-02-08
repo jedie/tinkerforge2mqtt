@@ -29,15 +29,24 @@ sudo apt install brickd
 ```
 
 
-### Bootstrap tinkerforge2mqtt
+## start development
 
-Clone the sources and just call the CLI to create a Python Virtualenv, e.g.:
+At least `uv` is needed. Install e.g.: via pipx:
+```bash
+apt-get install pipx
+pipx install uv
+```
+
+Clone the project and just start the CLI help commands.
+A virtual environment will be created/updated automatically.
 
 ```bash
 ~$ git clone https://github.com/jedie/tinkerforge2mqtt.git
 ~$ cd tinkerforge2mqtt
 ~/tinkerforge2mqtt$ ./cli.py --help
+~/tinkerforge2mqtt$ ./dev-cli.py --help
 ```
+
 
 [comment]: <> (✂✂✂ auto generated main help start ✂✂✂)
 ```
@@ -52,22 +61,29 @@ usage: ./cli.py [-h] {discover,discover-map,edit-settings,local-hat-info,print-s
 │ (required)                                                                                                           │
 │   • discover      Discover Victron devices with Instant Readout                                                      │
 │   • discover-map  Discover Victron devices with Instant Readout                                                      │
-│   • edit-settings Edit the settings file. On first call: Create the default one.                                     │
-│   • local-hat-infoJust print information about from `/proc/device-tree/hat/` files.                                  │
-│   • print-settingsDisplay (anonymized) MQTT server username and password                                             │
+│   • edit-settings                                                                                                    │
+│                   Edit the settings file. On first call: Create the default one.                                     │
+│   • local-hat-info                                                                                                   │
+│                   Just print information about from `/proc/device-tree/hat/` files.                                  │
+│   • print-settings                                                                                                   │
+│                   Display (anonymized) MQTT server username and password                                             │
 │   • publish-loop  Publish Tinkerforge devices events via MQTT to Home Assistant.                                     │
-│   • systemd-debug Print Systemd service template + context + rendered file content.                                  │
+│   • systemd-debug                                                                                                    │
+│                   Print Systemd service template + context + rendered file content.                                  │
 │   • systemd-logs  Show systemd service logs. (May need sudo)                                                         │
-│   • systemd-removeRemove Systemd service file. (May need sudo)                                                       │
-│   • systemd-setup Write Systemd service file, enable it and (re-)start the service. (May need sudo)                  │
-│   • systemd-statusDisplay status of systemd service. (May need sudo)                                                 │
+│   • systemd-remove                                                                                                   │
+│                   Remove Systemd service file. (May need sudo)                                                       │
+│   • systemd-setup                                                                                                    │
+│                   Write Systemd service file, enable it and (re-)start the service. (May need sudo)                  │
+│   • systemd-status                                                                                                   │
+│                   Display status of systemd service. (May need sudo)                                                 │
 │   • systemd-stop  Stops the systemd service. (May need sudo)                                                         │
 │   • update-readme-history                                                                                            │
-│ Update project history base on git commits/tags in README.md Will be exited with 1 if the README.md was updated      │
-│ otherwise with 0.                                                                                                    │
+│                   Update project history base on git commits/tags in README.md Will be exited with 1 if the          │
+│                   README.md was updated otherwise with 0.                                                            │
 │                                                                                                                      │
-│ Also, callable via e.g.:                                                                                             │
-│     python -m cli_base update-readme-history -v                                                                      │
+│                   Also, callable via e.g.:                                                                           │
+│                       python -m cli_base update-readme-history -v                                                    │
 │   • version       Print version and exit                                                                             │
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
@@ -92,18 +108,19 @@ usage: ./dev-cli.py [-h] {coverage,install,lint,mypy,nox,pip-audit,publish,test,
 │   • lint      Check/fix code style by run: "ruff check --fix"                                                        │
 │   • mypy      Run Mypy (configured in pyproject.toml)                                                                │
 │   • nox       Run nox                                                                                                │
-│   • pip-audit Run pip-audit check against current requirements files                                                 │
+│   • pip-audit                                                                                                        │
+│               Run pip-audit check against current requirements files                                                 │
 │   • publish   Build and upload this project to PyPi                                                                  │
 │   • test      Run unittests                                                                                          │
 │   • update    Update dependencies (uv.lock) and git pre-commit hooks                                                 │
 │   • update-readme-history                                                                                            │
-│ Update project history base on git commits/tags in README.md Will be exited with 1 if the README.md was updated      │
-│ otherwise with 0.                                                                                                    │
+│               Update project history base on git commits/tags in README.md Will be exited with 1 if the README.md    │
+│               was updated otherwise with 0.                                                                          │
 │                                                                                                                      │
-│ Also, callable via e.g.:                                                                                             │
-│     python -m cli_base update-readme-history -v                                                                      │
+│               Also, callable via e.g.:                                                                               │
+│                   python -m cli_base update-readme-history -v                                                        │
 │   • update-test-snapshot-files                                                                                       │
-│ Update all test snapshot files (by remove and recreate all snapshot files)                                           │
+│               Update all test snapshot files (by remove and recreate all snapshot files)                             │
 │   • version   Print version and exit                                                                                 │
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
@@ -127,9 +144,14 @@ usage: ./dev-cli.py [-h] {coverage,install,lint,mypy,nox,pip-audit,publish,test,
 
 
 
+
+
+
+
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
 * [**dev**](https://github.com/jedie/tinkerforge2mqtt/compare/v0.9.3...main)
+  * 2026-02-08 - Apply manageprojects updates: set min. Python to v3.12 und uv direct
   * 2025-12-09 - Update requirements
 * [v0.9.3](https://github.com/jedie/tinkerforge2mqtt/compare/v0.9.2...v0.9.3)
   * 2025-10-25 - Fix #27 BrickletHumidityV2Mapper AttributeError

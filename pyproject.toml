@@ -7,7 +7,7 @@ readme = "README.md"
 authors = [
     {name = 'Jens Diemer', email = 'git@jensdiemer.de'}
 ]
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 dependencies = [
     "tinkerforge",  # https://www.tinkerforge.com/doc/Source_Code.html
     "ha-services>=2.5.0",  # https://github.com/jedie/ha-services
@@ -40,8 +40,15 @@ Documentation = "https://github.com/jedie/tinkerforge2mqtt"
 Source = "https://github.com/jedie/tinkerforge2mqtt"
 
 [project.scripts]
-tinkerforge2mqtt_app = "tinkerforge2mqtt.__main__:main"
-tinkerforge2mqtt_dev = "tinkerforge2mqtt.cli_dev:main"
+tinkerforge2mqtt = "tinkerforge2mqtt.__main__:main"
+
+
+[tool.bx_py_utils.doc_write]
+docstring_prefix = 'DocWrite:'
+macro_prefix = 'DocWriteMacro:'
+output_base_path = './docs/'
+search_paths = ['./tinkerforge2mqtt/']
+delete_obsolete_files = true
 
 
 [build-system]
@@ -127,6 +134,7 @@ cookiecutter_directory = "uv-python"
 applied_migrations = [
     "765b8fb", # 2024-03-12T09:08:01+01:00
     "2d314b4", # 2025-10-21T13:55:34+02:00
+    "af6dd62", # 2026-01-26T16:04:53+01:00
 ]
 
 [manageprojects.cookiecutter_context.cookiecutter]
