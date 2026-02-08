@@ -150,7 +150,7 @@ usage: ./dev-cli.py [-h] {coverage,install,lint,mypy,nox,pip-audit,publish,test,
 
 [comment]: <> (✂✂✂ auto generated history start ✂✂✂)
 
-* [**dev**](https://github.com/jedie/tinkerforge2mqtt/compare/v0.9.3...main)
+* [v0.9.4](https://github.com/jedie/tinkerforge2mqtt/compare/v0.9.3...v0.9.4)
   * 2026-02-08 - Apply manageprojects updates: set min. Python to v3.12 und uv direct
   * 2025-12-09 - Update requirements
 * [v0.9.3](https://github.com/jedie/tinkerforge2mqtt/compare/v0.9.2...v0.9.3)
